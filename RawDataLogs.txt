@@ -1,0 +1,13 @@
+tblPHLhour_forNetSTORM.csv: Rainfall Time Series, used for NetStorm analysis
+NetSTORM_PHLRainfallEvents.csv: Rainfall Events definition, produced by NetStorm
+
+PhilLPFilt-Adj09-detrendedto1901_1901-2015_NAVD88-EST.csv: Low frequency, Detrended, pivot at 1900, Tide Time Series
+PhilSL-Adj09-detrendedto1901_1901-2015_NAVD88-EST.csv: High frequency, Detrended, pivot at 1900, Tide Time Series
+Tide_Phila_obs_P11adj0.09.csv: High frequency Tide Time Series
+Tide_PhilSL_LPFilt_01_2015.csv: Low frequency Tide Time Series
+
+Not in use:
+PhilSL_1901_2015_FtNAVDLSTPier11Adj.csv: High freqency, Filled, Tide Time Series
+MaxTidePerEventLevel_Version2_20141208_VR.xlsx: event-based max tide by VR
+PhilLPFilt-Adj09-detrended_1901-2015_NAVD88-EST.csv: Low frequency, Detrend, pivot at 1950, Tide Time Series
+PhilSL-Adj09-detrended_1901-2015_NAVD88-EST.csv: High frequency, Detrend, pivot at 1950, Tide Time Series
