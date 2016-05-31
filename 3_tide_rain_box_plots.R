@@ -33,6 +33,7 @@ p.TS.all<- ggplot(d)+
 p.TS.mean <- ggplot(t,aes(start,t[,7]))+
     geom_point(alpha=0.2)+
     geom_smooth(size=1.1, color="red")+
+    scale_y_continuous(breaks=-4:4)+
     labs(x="Year", y="Event-Mean tide Elevation (ft, NAVD88)",
          title="Event-Mean Tide Time Series")+
     theme(axis.title = element_text(size = rel(1.2)),
@@ -62,14 +63,15 @@ p.cdf.all<- ggplot(d.cdf)+
     geom_polygon(data = poly_df,aes(x = x,y = y),
                  fill = "lightgray",alpha = 0.8)+
     geom_line(aes(y=level,x=cdf,group=stat,color=stat))+
+    scale_y_continuous(breaks=-5:5)+
     labs(x="CDF,% equal or less",y="Event-Mean tide Elevation (ft, NAVD88)",title="Event-based Tide Stats")+
-    geom_hline(yintercept = c(2.47,-4.22),size=0.2,linetype='dashed')+
+    geom_hline(yintercept = c(2.47,-4.22),linetype='dashed')+
     annotate(geom="text", label="MHHW 1901 = 2.47 feet NAVD88",x=0,y=2.47,vjust=-1, hjust=0)+
     annotate(geom="text", label="MLLW 1901 = -4.22 feet NAVD88",x=0,y=-4.22,vjust=-1,hjust=0)+
-    theme_bw()+
     theme(axis.title = element_text(size = rel(1.2)),
-          axis.text=element_text(size = rel(1.2)),
-          legend.justification=c(1,0), legend.position=c(1,0))
+          axis.text=element_text(size = rel(1.2)))+
+    theme_bw()+
+    theme(legend.justification=c(1,0), legend.position=c(1,0))
 
 # duration vs tide
 p.tide.vs.duration <- ggplot(t, aes(x=duration,y=t[,7]))+
@@ -90,8 +92,9 @@ n_count <- summary(depth.factor)
 
 p.box.by.Rdepth1 <- ggplot(t, aes(y=t[,7],x=depth.factor))+
     geom_boxplot()+
+    scale_y_continuous(breaks=-5:5)+
     labs(x="Rainfall depth category (in)",y="Event-Mean tide Elevation (ft, NAVD88)",title="Categorized tide box-whisker plot, method 1")+
-    geom_hline(yintercept = c(2.47,-4.22),size=0.2,linetype='dashed')+
+    geom_hline(yintercept = c(2.47,-4.22),linetype='dashed')+
     annotate(geom="text", label="MHHW 1901 = 2.47 feet NAVD88",x=0.5,y=2.47,vjust=-1,hjust=0)+
     annotate(geom="text", label="MLLW 1901 = -4.22 feet NAVD88",x=0.5,y=-4.22,vjust=-1,hjust=0)+
     annotate(geom="text",label=paste0("n = ",n_count),x = 1:length(n_count),y = 4,size=4)+
@@ -108,8 +111,9 @@ tide.melt <- data.frame(
 n_count <- summary(tide.melt$index)
 p.box.by.Rdepth2 <- ggplot(tide.melt,aes(y=tide,x=index)) +
     geom_boxplot() +
+    scale_y_continuous(breaks=-5:5)+
     labs(x="Rainfall depth category (in)",y="Event-Mean tide Elevation (ft, NAVD88)",title="Categorized tide box-whisker plot, method 2")+
-    geom_hline(yintercept = c(2.47,-4.22),size=0.2,linetype='dashed')+
+    geom_hline(yintercept = c(2.47,-4.22),linetype='dashed')+
     annotate(geom="text", label="MHHW 1901 = 2.47 feet NAVD88",x=0.5,y=2.47,vjust=-1,hjust=0)+
     annotate(geom="text", label="MLLW 1901 = -4.22 feet NAVD88",x=0.5,y=-4.22,vjust=-1,hjust=0)+
     annotate(geom="text",label=paste0("n = ",n_count),x = 1:length(n_count),y = 4,size=4)+
