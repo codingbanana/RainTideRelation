@@ -57,12 +57,17 @@ tide.min <-setNames(tide.cdf[,c(4,1)],c('x','y'))
 tide.min <- tide.min[order(tide.min$y,na.last = NA),]
 tide.max <-setNames(tide.cdf[,c(6,3)],c('x','y'))
 tide.max <- tide.max[order(tide.max$y,na.last = NA,decreasing = T),]
+#create a temp df for geom_points.
+tmp <- data.frame(depth=cut(t$depth,breaks = c(0:3,Inf)),
+                           level=tide.cdf[,2],
+                           cdf=tide.cdf[,5])
 
 poly_df <- rbind(tide.min, tide.max)
 p.cdf.all<- ggplot(d.cdf)+
     geom_polygon(data = poly_df,aes(x = x,y = y),
-                 fill = "lightgray",alpha = 0.8)+
+                 fill = "gray",alpha = 0.8)+
     geom_line(aes(y=level,x=cdf,group=stat,color=stat))+
+    geom_point(data=tmp,aes(x=cdf,y=level,color=depth,shape=depth))+
     scale_y_continuous(breaks=-5:5)+
     labs(x="CDF,% equal or less",y="Event-Mean tide Elevation (ft, NAVD88)",title="Event-based Tide Stats")+
     geom_hline(yintercept = c(2.47,-4.22),linetype='dashed')+
@@ -85,7 +90,7 @@ p.tide.vs.duration <- ggplot(t, aes(x=duration,y=t[,7]))+
           legend.position="none") +
     theme_bw()
 
-# categorized CDF by depth
+# categorized box by depth
 ## method 1: range (0~1,1~2,2~3,3~Inf)
 depth.factor <- cut(t$depth,breaks = c(0:3,Inf))
 n_count <- summary(depth.factor)
