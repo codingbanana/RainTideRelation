@@ -137,6 +137,15 @@ make_plots(rain_lf)
 # save all plots in a Rdata file
 # deparse(substitute()): returns the object name as a string
 save(list=grep("(^p\\.)",ls(),value=T),file ="ggplots_lf.Rdata")
+
+# export plots
+## scale : <1 : enlarge font; >1 : shrink font
+sapply(grep("(^p\\.)",ls(),value=T),function (x) {
+    ggsave(filename = paste0(x,".png"),plot = get(x),device = "png",
+           path = file.path(getwd(),"exportPNG"),scale = 0.7,
+           width = 12,height = 8,units = 'in',dpi = 300)
+})
+
 # rm()
 # # same way for high frequency data
 # make_plots(rain_hf)
